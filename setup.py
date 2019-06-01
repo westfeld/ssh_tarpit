@@ -8,7 +8,7 @@ SSHTarpit_packages.append('twisted.plugins')
 
 setuptools.setup(
     name="SSHTarpit",
-    version="0.0.2",
+    version="0.0.3",
     author="Thomas Westfeld",
     author_email="westfeld@mac.com",
     description="Dummy SSH server that will hold incoming connections forever",

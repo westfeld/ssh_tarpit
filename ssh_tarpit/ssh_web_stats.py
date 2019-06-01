@@ -18,8 +18,14 @@ class SSHTarpitStatisticsResource(resource.Resource):
     def render_GET(self, request):
         """
         create array of open connections including ip address
-        and connection duration in seconds
+        and connection duration in seconds.
+        If no client is connected return HTTP code 204 NO CONTENT
         """
+
+        if not len(self.tarpit_factory.open_connections):
+            request.setResponseCode(204, message=b"No clients connected "
+                                    b"to SSH tarpit")
+            return b""
         result = []
         now = datetime.datetime.now()
 

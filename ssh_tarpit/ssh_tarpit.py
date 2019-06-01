@@ -1,7 +1,7 @@
 # coding: utf-8
 
 import datetime
-import secrets
+import random
 import sys
 from twisted.internet.protocol import Factory, Protocol
 from twisted.internet import reactor
@@ -15,6 +15,7 @@ class SSHTarpitProtocol(Protocol):
     def __init__(self):
         # LooingCall for sending random bytes
         self.lc = None
+        random.seed()
         self.send_interval = 10
         self.connection_timestamp = None
         super().__init__()
@@ -24,7 +25,8 @@ class SSHTarpitProtocol(Protocol):
         Method which sends a number of random bytes over the established
         TCP connection
         """
-        self.transport.write(bytes(secrets.token_bytes(128)))
+        random_bytes = [random.getrandbits(8) for i in range(128)]
+        self.transport.write(bytes(random_bytes))
 
     def connectionMade(self):
         """
